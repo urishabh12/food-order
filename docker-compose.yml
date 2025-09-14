@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    image: order-food:latest
+    container_name: order-food
+    environment:
+      ADDR: ":8080"
+      BASE_PATH: "/api"
+      API_KEY: "apitest"
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
