@@ -18,6 +18,8 @@ func NewRouter(cfg config.Config) *chi.Mux {
 	h := &Handlers{}
 	r.Route(cfg.BasePath, func(api chi.Router) {
 		api.Get("/healthz", h.Healthcheck)
+		api.Get("/product", h.GetProducts)
+		api.Get("/product/{productId}", h.GetProductById)
 	})
 
 	return r
