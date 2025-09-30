@@ -11,12 +11,19 @@ import (
 
 	"order-food/internal/api"
 	"order-food/internal/config"
+	"order-food/internal/coupons"
 )
 
 func main() {
 	cfg := config.FromEnv()
 
-	r := api.NewRouter(cfg)
+	couponStore, err := coupons.Load(cfg.CouponsDir)
+	if err != nil {
+		log.Fatalf("load coupons: %v", err)
+	}
+
+	h := &api.Handlers{Coupons: couponStore}
+	r := api.NewRouter(cfg, h)
 
 	srv := &http.Server{
 		Addr:              cfg.Addr,

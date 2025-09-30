@@ -9,6 +9,9 @@ services:
       ADDR: ":8080"
       BASE_PATH: "/api"
       API_KEY: "apitest"
+      COUPONS_DIR: "/app/coupons"
     ports:
       - "8080:8080"
+    volumes:
+      - ./coupons:/app/coupons:ro
     restart: unless-stopped
